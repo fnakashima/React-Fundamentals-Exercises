@@ -1,28 +1,26 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import ItemList from "./ItemList";
+import AddItem from "./AddItem";
+import DeleteItem from "./DeleteItem";
 
 const App = () => {
-  const [value, setValue] = useState("");
   const [items, setItems] = useState([]);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  const addItem = (event) => {
-    event.preventDefault();
-    setItems([...items, value]);
-    setValue("");
+  const addNewItem = (item) => {
+    setItems([...items, item]);
   };
 
   const deleteLastItem = (event) => {
+    console.log("deleteLastItem was called");
     setItems(items.slice(0, -1));
   };
 
-  const inputIsEmpty = () => value === "";
-
-  const noItemsFound = () => items.length === 0;
+  const noItemsFound = () => {
+    console.log("noItemsFound was called: " + items.length);
+    return items.length === 0;
+  };
 
   return (
     <div className="App">
@@ -31,26 +29,11 @@ const App = () => {
         <h1 className="App-title">ReactND - Coding Practice</h1>
       </header>
       <h2>Shopping List</h2>
-      <form onSubmit={addItem}>
-        <input
-          type="text"
-          placeholder="Enter New Item"
-          value={value}
-          onChange={handleChange}
-        />
-        <button disabled={inputIsEmpty()}>Add</button>
-      </form>
+      <AddItem addNewItem={addNewItem}/>
 
-      <button onClick={deleteLastItem} disabled={noItemsFound()}>
-        Delete Last Item
-      </button>
+      <DeleteItem deleteLastItem={deleteLastItem} noItemsFound={noItemsFound} />
 
-      <p className="items">Items</p>
-      <ol className="item-list">
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ol>
+      <ItemList items={items} />
     </div>
   );
 };
