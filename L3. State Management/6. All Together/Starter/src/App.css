@@ -22,6 +22,27 @@
   font-size: large;
 }
 
+.App-body {
+  display: flex;
+  justify-content: center;
+}
+.UserList, .AddUser {
+  padding: 10px 20px;
+  margin: 10px;
+}
+.UserList {
+  border-right-width: 1px;
+  border-right-style: dashed;
+  border-right-color: gray;
+}
+.UserList ul {
+  padding-inline-start: 0;
+}
+.UserList li {
+  list-style-type: none;
+  text-align: left;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
